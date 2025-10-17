@@ -24,7 +24,7 @@ namespace RunnerHandicapCalculator
                 Console.WriteLine($"How fast does {name} run 1000 meters?");
                 if (i == 0)
                 {
-                    Console.WriteLine("(Enter as <minutes>:<seconds>, i.e 5:31)");
+                    Console.WriteLine("(Enter as <minutes>:<seconds>, e.g 5:31)");
                 }
                 var speed = Console.ReadLine();
                 var delimiterIndex = speed.IndexOf(':');
