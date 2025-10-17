@@ -14,7 +14,7 @@ namespace Logic
             secondsPerKm;
 
         public double SecondsPerMeter =>
-            secondsPerKm / (double)1000;
+            SecondsPerKm / (double)1000;
 
         public int EstimatedSecondsForRace =>
             (int)Math.Round(raceDistanceInMeters * SecondsPerMeter);
