@@ -1,4 +1,5 @@
 ﻿using Logic;
+using Logic.Helpers;
 
 namespace RunnerHandicapCalculator
 {
@@ -26,11 +27,7 @@ namespace RunnerHandicapCalculator
                 {
                     Console.WriteLine("(Enter as <minutes>:<seconds>, e.g 5:31)");
                 }
-                var speed = Console.ReadLine();
-                var delimiterIndex = speed.IndexOf(':');
-                var minutes = Convert.ToInt32(speed.Substring(0, delimiterIndex));
-                var seconds = Convert.ToInt32(speed.Substring(delimiterIndex + 1));
-                var secondsPerKm = minutes * 60 + seconds;
+                var secondsPerKm = TimeHelper.TimeFromText(Console.ReadLine(), ':');
                 Console.WriteLine();
 
                 race.AddRunner(name, secondsPerKm);
