@@ -1,0 +1,42 @@
+﻿using Logic;
+
+namespace RunnerHandicapCalculator
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("How many runners will race? ");
+            var numberOfRunners = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
+
+            Console.WriteLine("How many meters is the race? ");
+            var raceDistanceInMeter = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
+
+            var race = new Race(raceDistanceInMeter);
+            for (int i = 0; i < numberOfRunners; i++)
+            {
+                Console.WriteLine($"Enter name of runner #{i + 1}: ");
+                var name = Console.ReadLine();
+                Console.WriteLine();
+
+                Console.WriteLine($"How fast does {name} run 1000 meters?");
+                if (i == 0)
+                {
+                    Console.WriteLine("(Enter as <minutes>:<seconds>, i.e 5:31)");
+                }
+                var speed = Console.ReadLine();
+                var delimiterIndex = speed.IndexOf(':');
+                var minutes = Convert.ToInt32(speed.Substring(0, delimiterIndex));
+                var seconds = Convert.ToInt32(speed.Substring(delimiterIndex + 1));
+                var secondsPerKm = minutes * 60 + seconds;
+                Console.WriteLine();
+
+                race.AddRunner(name, secondsPerKm);
+            }
+
+            Console.WriteLine(race.GetHcpTable());
+        }
+    }
+}
