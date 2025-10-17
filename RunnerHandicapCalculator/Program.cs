@@ -36,6 +36,7 @@ namespace RunnerHandicapCalculator
                 race.AddRunner(name, secondsPerKm);
             }
 
+            Console.WriteLine("The HCP-adjusted start times are as follows:");
             Console.WriteLine(race.GetHcpTable());
         }
     }
