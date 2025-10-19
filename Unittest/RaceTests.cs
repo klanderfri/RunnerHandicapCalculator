@@ -2,7 +2,7 @@
 
 namespace Unittest
 {
-    public class HcpTableGenerationTest
+    public class RaceTests
     {
         [Fact]
         public void CreateHcpTableTest()
