@@ -24,7 +24,6 @@ namespace Logic
             .OrderByDescending(r => r.EstimatedTimeForRace)
             .First()
             .EstimatedTimeForRace;
-        
 
         public string GetHcpTable()
         {
@@ -41,6 +40,25 @@ namespace Logic
             }
 
             return hcpTable.ToString();
+        }
+
+        public string GetRunnersCsvData()
+        {
+            var csv = new StringBuilder();
+            csv.AppendLine("Name,Tempo (sec/km),Start time (sec),Estimated finish time (sec)");
+
+            var baseTime = GetBaseTime();
+            var runners = Runners.OrderBy(r => r.Name);
+            foreach (var runner in runners)
+            {
+                var tempo = Math.Round(runner.TimePerKm.TotalSeconds);
+                var startSeconds = Math.Round((baseTime - runner.EstimatedTimeForRace).TotalSeconds);
+                var finishSeconds = Math.Round(runner.EstimatedTimeForRace.TotalSeconds);
+
+                csv.AppendLine($"{runner.Name},{tempo},{startSeconds},{finishSeconds}");
+            }
+
+            return csv.ToString();
         }
     }
 }

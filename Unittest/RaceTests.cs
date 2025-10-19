@@ -19,5 +19,19 @@ namespace Unittest
 
             Assert.Equal(expectedHcpTable, actualHcpTable);
         }
+
+        [Fact]
+        public void CreateRunnersCsvDataTest()
+        {
+            var race = new Race(6040);
+
+            race.AddRunner("Bertil", 5, 31);
+            race.AddRunner("Adam", 4, 31);
+
+            var actualCsv = race.GetRunnersCsvData();
+            var expectedCsv = "Name,Tempo (sec/km),Start time (sec),Estimated finish time (sec)\r\nAdam,271,362,1637\r\nBertil,331,0,1999\r\n";
+
+            Assert.Equal(expectedCsv, actualCsv);
+        }
     }
 }

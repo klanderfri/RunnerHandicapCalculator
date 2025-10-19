@@ -35,6 +35,9 @@ namespace RunnerHandicapCalculator
 
             Console.WriteLine("The HCP-adjusted start times are as follows:");
             Console.WriteLine(race.GetHcpTable());
+
+            Console.WriteLine("Race data as CSV:");
+            Console.WriteLine(race.GetRunnersCsvData());
         }
     }
 }
