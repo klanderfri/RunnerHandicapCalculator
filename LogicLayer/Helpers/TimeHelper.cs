@@ -2,10 +2,20 @@
 {
     public static class TimeHelper
     {
-        public static string TextFromTime(int timeInSeconds)
+        public static string TextFromTime(TimeSpan time)
         {
-            var time = new TimeSpan(0, 0, timeInSeconds);
-            return $"{time.Minutes.PadZeroLeft(1)}:{time.Seconds.PadZeroLeft(2)}";
+            var minutesText = time.Minutes.PadZeroLeft(1);
+
+            var seconds = time.Seconds;
+            if (time.Milliseconds >= 500)
+            {
+                //TimeSpan cuts of the decimals on the seconds, so add 1 second if
+                //the rounding should be up.
+                seconds++;
+            }
+            var secondsText = seconds.PadZeroLeft(2);
+
+            return $"{minutesText}:{secondsText}";
         }
 
         public static TimeSpan TimeFromText(string timeInMinutesAndSeconds, char delimiter)

@@ -10,29 +10,33 @@ namespace Logic
         public void AddRunner(string name, int minutesPerKm, int secondsPerKm) =>
             AddRunner(name, new TimeSpan(0, minutesPerKm, secondsPerKm));
 
-        public void AddRunner(string name, TimeSpan timePerKm) =>
-            AddRunner(name, (int)timePerKm.TotalSeconds);
+        public void AddRunner(string name, int secondsPerKm) =>
+            AddRunner(name, new TimeSpan(0, 0, secondsPerKm));
 
-        public void AddRunner(string name, int totalSecondsPerKm)
-        {
-            var runner = new Runner(name, totalSecondsPerKm, RaceDistanceInMeters);
-            AddRunner(runner);
-        }
+        public void AddRunner(string name, TimeSpan timePerKm) =>
+            AddRunner(new Runner(name, timePerKm, RaceDistanceInMeters));
 
         public void AddRunner(Runner runner) =>
             Runners.Add(runner);
+
+        private TimeSpan GetBaseTime() =>
+            Runners
+            .OrderByDescending(r => r.EstimatedTimeForRace)
+            .First()
+            .EstimatedTimeForRace;
+        
 
         public string GetHcpTable()
         {
             var hcpTable = new StringBuilder();
 
-            var runners = Runners.OrderByDescending(r => r.EstimatedSecondsForRace);
-            var baseTimeInSeconds = runners.First().EstimatedSecondsForRace;
+            var runners = Runners.OrderByDescending(r => r.EstimatedTimeForRace);
+            var baseTime = GetBaseTime();
 
             foreach (var runner in runners)
             {
-                var extraStartTimeInSeconds = baseTimeInSeconds - runner.EstimatedSecondsForRace;
-                var startTime = TimeHelper.TextFromTime(extraStartTimeInSeconds);
+                var extraStartTime = baseTime - runner.EstimatedTimeForRace;
+                var startTime = TimeHelper.TextFromTime(extraStartTime);
                 hcpTable.AppendLine($"{startTime} - {runner.Name}");
             }
 

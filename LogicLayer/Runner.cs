@@ -4,22 +4,22 @@ namespace Logic
 {
     public class Runner(
         string name,
-        int secondsPerKm,
+        TimeSpan timePerKm,
         int raceDistanceInMeters)
     {
         public string Name =>
             name;
 
-        public int SecondsPerKm =>
-            secondsPerKm;
+        public TimeSpan TimePerKm =>
+            timePerKm;
 
-        public double SecondsPerMeter =>
-            SecondsPerKm / (double)1000;
+        public TimeSpan TimePerMeter =>
+            TimePerKm / 1000;
 
-        public int EstimatedSecondsForRace =>
-            (int)Math.Round(raceDistanceInMeters * SecondsPerMeter);
+        public TimeSpan EstimatedTimeForRace =>
+            TimePerMeter * raceDistanceInMeters;
 
-        public string EstimatedTimeForRace =>
-            TimeHelper.TextFromTime(EstimatedSecondsForRace);
+        public string EstimatedTimeForRaceAsText =>
+            TimeHelper.TextFromTime(EstimatedTimeForRace);
     }
 }
